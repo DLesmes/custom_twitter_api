@@ -1,2 +1,3 @@
-# custom_twitter_api
+# Custom Twitter API
+
 It is an API that emulate the twitter data model

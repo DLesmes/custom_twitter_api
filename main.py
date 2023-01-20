@@ -5,6 +5,13 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi import status
 
+#models
+from models import (
+    UserLogin,
+    User,
+    Tweet
+)
+
 app = FastAPI()
 
 @app.get(
@@ -18,7 +25,9 @@ def home(): # Called path operation function
     This path returns the home page of the API.
     No parameters are required.
     """
-    return {"Twitter API'": "Working"}
+    return {
+        "Twitter API'": "Working"
+    }
 
 if __name__ == "__main__":uvicorn.run(
         "__main__:app",

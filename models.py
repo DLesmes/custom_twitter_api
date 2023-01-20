@@ -9,7 +9,6 @@ from pydantic import (
     BaseModel,
     EmailStr,
     Field,
-    Genders,
     validator
 )
 

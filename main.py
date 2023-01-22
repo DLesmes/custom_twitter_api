@@ -22,20 +22,20 @@ from models import (
 
 app = FastAPI()
 
-@app.get(
-    path="/",
-    status_code=status.HTTP_200_OK,
-    tags=["Pages"]
-) # Called Path operation decorator
-def home(): # Called path operation function
-    """
-    Home page of the API
-    This path returns the home page of the API.
-    No parameters are required.
-    """
-    return {
-        "Twitter API'": "Working"
-    }
+# @app.get(
+#     path="/",
+#     status_code=status.HTTP_200_OK,
+#     tags=["Pages"]
+# ) # Called Path operation decorator
+# def home(): # Called path operation function
+#     """
+#     Home page of the API
+#     This path returns the home page of the API.
+#     No parameters are required.
+#     """
+#     return {
+#         "Twitter API'": "Working"
+#     }
 
 ## Users
 
@@ -155,7 +155,22 @@ def update_a_user():
     tags=["Tweets"]
 )
 def home():
-    return {"Twitter API": "Working!"}
+    """
+    This path operation shows all tweets in the app
+
+    Parametes:
+    - None
+
+    Return a json list whit all tweets in the app, with the following keys:
+    - tweet_id: UUID  
+    - content: str    
+    - created_at: datetime
+    - updated_at: Optional[datetime]
+    - by: User
+    """
+    with open("tweets.json", "r", encoding="utf-8") as f:
+        results = json.load(f)
+        return results
 
 ### Post a tweet
 @app.post(

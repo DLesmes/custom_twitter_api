@@ -14,12 +14,6 @@ from pydantic import (
 
 class UserBase(BaseModel):
     user_id: UUID  = Field(...)
-    user_name: str = Field(
-        ...,
-        min_length=3,
-        max_length=10,
-        example='sgewux'
-    )
     email: EmailStr = Field(..., example='sebas@sebas.com')
     birth_date: date = Field(..., example='1998-06-23')
 
@@ -40,7 +34,6 @@ class UserLogin(UserBase):
         min_length=8
     )
 
-
 class User(UserBase):
     first_name: str = Field(
         ...,
@@ -53,6 +46,21 @@ class User(UserBase):
         max_length=50
     )
     birth_date: Optional[date] = Field(default=None)
+
+    class Config: 
+        schema_extra = {
+            "example": {
+                "user_id":"0023f7f1-e05a-4bd7-9099-8503e3523444",
+                "first_name": "Jim",
+                "last_name": "Rogers",
+                "birth_date": "1998-06-23",
+                "email": "jim.rogers@mail.com",
+                "password": "asdfghtyy"
+            }
+        }
+
+class UserRegister(User, UserLogin):
+    pass
 
 class Tweet(BaseModel):
     tweet_id: UUID = Field(...)

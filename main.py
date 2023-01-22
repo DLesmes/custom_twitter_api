@@ -3,16 +3,21 @@ import uvicorn
 
 #fastapi
 from fastapi import FastAPI
-from fastapi import status
+from fastapi import (
+    status,
+    Body
+)
 
 #python
 from typing import List
+import json
 
 #models
 from models import (
     UserLogin,
     User,
-    Tweet
+    Tweet,
+    UserRegister
 )
 
 app = FastAPI()
@@ -42,8 +47,30 @@ def home(): # Called path operation function
     summary="Register a User",
     tags=["Users"]
 )
-def signup(): 
-    pass
+def signup(user: UserRegister = Body(...)): 
+    """
+    Signup
+    This path operation register a user in the app
+    Parameters: 
+        - Request body parameter
+            - user: UserRegister
+    
+    Returns a json with the basic user information: 
+        - user_id: UUID
+        - email: Emailstr
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+    """
+    with open("users.json", "r+", encoding="utf-8") as f: 
+        results = json.load(f)
+        user_dict = user.dict()
+        user_dict["user_id"] = str(user_dict["user_id"])
+        user_dict["birth_date"] = str(user_dict["birth_date"])
+        results.append(user_dict)
+        f.seek(0)
+        f.write(json.dumps(results))
+        return user
 
 ### Login a user
 @app.post(

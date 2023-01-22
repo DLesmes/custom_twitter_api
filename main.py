@@ -52,15 +52,15 @@ def signup(user: UserRegister = Body(...)):
     Signup
     This path operation register a user in the app
     Parameters: 
-        - Request body parameter
-            - user: UserRegister
+    - Request body parameter
+        - user: UserRegister
     
     Returns a json with the basic user information: 
-        - user_id: UUID
-        - email: Emailstr
-        - first_name: str
-        - last_name: str
-        - birth_date: datetime
+    - user_id: UUID
+    - email: Emailstr
+    - first_name: str
+    - last_name: str
+    - birth_date: datetime
     """
     with open("users.json", "r+", encoding="utf-8") as f: 
         results = json.load(f)
@@ -92,7 +92,23 @@ def login():
     tags=["Users"]
 )
 def show_all_users(): 
-    pass
+    """
+    Get Users
+
+    This path operation shows all users created in the app
+
+    Parameters: None
+
+    Returns a list with the basic user information of all users created in the app:
+    - user_id: UUID
+    - email: Emailstr
+    - first_name: str
+    - last_name: str
+    - birth_date: date
+    """
+    with open("users.json", "r", encoding="utf-8") as f: 
+        results = json.load(f)
+        return results
 
 ### Show a user
 @app.get(
